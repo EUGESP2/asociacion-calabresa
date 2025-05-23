@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Asociación Calabresa</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Estilo para el menú activo */
+    nav ul li a.active {
+      background-color: #e0e0e0;
+      color: #333;
+      padding: 8px 16px;
+      border-radius: 4px;
+      font-weight: bold;
+    }
+
+    /* Estilo para el menú al pasar el mouse */
+    nav ul li a:hover {
+      background-color: #f0f0f0;
+      color: #333;
+      padding: 8px 16px;
+      border-radius: 4px;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+
+    /* Estilo base para los enlaces del menú */
+    nav ul li a {
+      padding: 8px 16px;
+      transition: all 0.3s ease;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo">
+        <img src="img/hqdefault.jpg" alt="Logo Asociación Calabresa" class="logo-img">
+        <h1>Asociación Calabresa</h1>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="index.html" class="active">Inicio</a></li>
+          <li><a href="quienessomos.html">Quiénes somos</a></li>
+          <li><a href="noticias.html">Noticias</a></li>
+          <li><a href="actividades.html">Actividades</a></li>
+          <li><a href="galeria.html">Galería</a></li>
+          <li><a href="socios.html">Socios</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
+          <li><a href="eventos.html">Eventos</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <div class="main-content">
+        <div class="content-box">
+          <section id="inicio">
+            <h2>Bienvenidos a la Asociación</h2>
+            <p>Un espacio de encuentro, cultura y comunidad.</p>
+            <a href="#socios" class="btn">Hacete Socio</a>
+          </section>
+
+          <section id="galeria-preview">
+            <h2>Galería</h2>
+            <div class="slider">
+              <img src="img/salon.jpg" class="slide active" alt="Salón principal">
+              <img src="img/fachada.jpg" class="slide" alt="Fachada de la asociación">
+              <img src="img/auditorio1.jpg" class="slide" alt="Auditorio durante evento social">
+              <img src="img/auditorio2.jpg" class="slide" alt="Grupo folklórico en el escenario">
+              <img src="img/calabria-playa.jpg" class="slide" alt="Costa de Calabria, Italia">
+            </div>
+          </section>
+
+          <section id="contacto">
+            <h2>Contacto</h2>
+            <p>Formulario y datos de contacto.</p>
+          </section>
+        </div>
+
+        <aside class="sidebar">
+          <div class="publicidad">
+            <h3>Publicidad</h3>
+            <p>Espacio para sponsors o promociones.</p>
+          </div>
+          <div class="novedades">
+            <h3>Novedades</h3>
+            <ul>
+              <li>Nuevo curso de cocina calabresa</li>
+              <li>Inscripciones abiertas para danza</li>
+              <li>Festival cultural en junio</li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </main>
+
+    <footer>
+      <p>&copy; 2025 Asociación Calabresa. Todos los derechos reservados.</p>
+    </footer>
+  </div>
+
+  <script>
+    // Manejo de la clase active en el menú
+    function updateActiveMenu() {
+      const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+      const menuLinks = document.querySelectorAll('nav ul li a');
+      
+      menuLinks.forEach(link => {
+        const linkHref = link.getAttribute('href');
+        if (linkHref === currentPage || (currentPage === '' && linkHref === 'index.html')) {
+          link.classList.add('active');
+        } else {
+          link.classList.remove('active');
+        }
+      });
+    }
+
+    // Slider mejorado
+    let currentSlide = 0;
+    let slideInterval;
+    const slides = document.querySelectorAll('.slide');
+
+    function showSlide(index) {
+      if (slides.length === 0) return;
+      
+      if (index >= slides.length) {
+        currentSlide = 0;
+      } else if (index < 0) {
+        currentSlide = slides.length - 1;
+      } else {
+        currentSlide = index;
+      }
+
+      slides.forEach((slide, i) => {
+        slide.classList.toggle('active', i === currentSlide);
+      });
+    }
+
+    // Inicialización
+    document.addEventListener('DOMContentLoaded', () => {
+      // Actualizar menú
+      updateActiveMenu();
+      
+      // Inicializar slider si existe
+      if (slides.length > 0) {
+        showSlide(0);
+        
+        // Cambio automático cada 5 segundos
+        slideInterval = setInterval(() => {
+          showSlide(currentSlide + 1);
+        }, 5000);
+      }
+    });
+
+    // Limpiar intervalo al salir de la página
+    window.addEventListener('beforeunload', () => {
+      if (slideInterval) {
+        clearInterval(slideInterval);
+      }
+    });
+  </script>
+</body>
+</html>

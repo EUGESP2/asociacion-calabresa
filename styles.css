@@ -1,0 +1,551 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    background-color: #f4f4f4;
+    color: #333;
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+  
+  header {
+    background-color: #800000;
+    color: #fff;
+    padding: 1rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  
+  .logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 1rem;
+  }
+  
+  .logo-img {
+    width: 80px;
+    height: auto;
+    border-radius: 50%;
+  }
+  
+  .logo h1 {
+    font-size: 2rem;
+    margin: 0;
+  }
+  
+  nav ul {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    list-style: none;
+    padding: 0;
+    gap: 1rem;
+  }
+  
+  nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  nav ul li a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  main {
+    padding: 2rem;
+  }
+  
+  section {
+    margin-bottom: 3rem;
+  }
+  
+  h2 {
+    color: #800000;
+    margin-bottom: 1rem;
+  }
+  
+  /* Botón interactivo */
+  .btn {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background-color: #800000;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  .btn:hover {
+    background-color: #a00000;
+    transform: scale(1.05);
+  }
+  
+  /* Slider */
+  .slider {
+    position: relative;
+    max-width: 100%;
+    height: 400px;
+    overflow: hidden;
+    margin: 20px 0;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+  
+  .slide {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+  }
+  
+  .slide.active {
+    opacity: 1;
+  }
+  
+  .slider-controls {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    z-index: 10;
+  }
+  
+  .prev-btn, .next-btn {
+    background-color: rgba(128, 0, 0, 0.8);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 18px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .prev-btn:hover, .next-btn:hover {
+    background-color: rgba(128, 0, 0, 1);
+  }
+  
+  /* Footer */
+  footer {
+    background-color: #800000;
+    color: #fff;
+    text-align: center;
+    padding: 1rem;
+    margin-top: 2rem;
+  }
+  
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .container {
+      max-width: 100%;
+    }
+
+    .main-content {
+      grid-template-columns: 1fr;
+    }
+
+    .sidebar {
+      position: static;
+      margin-top: 2rem;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .logo {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .logo h1 {
+      font-size: 1.5rem;
+    }
+
+    nav ul {
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    nav ul li {
+      width: 100%;
+      text-align: center;
+    }
+
+    nav ul li a {
+      display: block;
+      padding: 0.8rem;
+    }
+
+    .content-box {
+      padding: 1rem;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+    }
+
+    .btn {
+      width: 100%;
+      text-align: center;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .logo-img {
+      width: 60px;
+    }
+
+    .logo h1 {
+      font-size: 1.2rem;
+    }
+
+    .content-box {
+      padding: 0.8rem;
+    }
+
+    .publicidad, .novedades {
+      padding: 1rem;
+    }
+  }
+  
+  /* Estilos para la página Quiénes Somos */
+  .historia {
+    display: flex;
+    gap: 2rem;
+    margin: 2rem 0;
+    align-items: flex-start;
+  }
+
+  .historia-img {
+    width: 40%;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+
+  .historia-texto {
+    flex: 1;
+  }
+
+  .historia-texto h3 {
+    color: #800000;
+    margin: 1.5rem 0 1rem 0;
+  }
+
+  .historia-texto ul {
+    list-style-type: disc;
+    margin-left: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .historia-texto li {
+    margin-bottom: 0.5rem;
+  }
+
+  @media (max-width: 768px) {
+    .historia {
+      flex-direction: column;
+    }
+
+    .historia-img {
+      width: 100%;
+      margin-bottom: 1rem;
+    }
+  }
+  
+  /* Estilos para la página de Noticias */
+  .noticias-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin: 2rem 0;
+  }
+
+  .noticia {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+  }
+
+  .noticia:hover {
+    transform: translateY(-5px);
+  }
+
+  .noticia-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+
+  .noticia-contenido {
+    padding: 1.5rem;
+  }
+
+  .noticia-contenido h3 {
+    color: #800000;
+    margin-bottom: 0.5rem;
+  }
+
+  .fecha {
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+  }
+
+  .noticia-contenido p {
+    margin-bottom: 1rem;
+  }
+
+  @media (max-width: 768px) {
+    .noticias-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  /* Estilos para la página de Actividades */
+  .actividades-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin: 2rem 0;
+  }
+
+  .actividad {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+  }
+
+  .actividad:hover {
+    transform: translateY(-5px);
+  }
+
+  .actividad-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+
+  .actividad-info {
+    padding: 1.5rem;
+  }
+
+  .actividad-info h3 {
+    color: #800000;
+    margin-bottom: 1rem;
+  }
+
+  .actividad-info p {
+    margin-bottom: 1rem;
+  }
+
+  .actividad-info ul {
+    list-style-type: none;
+    margin-bottom: 1.5rem;
+  }
+
+  .actividad-info li {
+    margin-bottom: 0.5rem;
+    padding-left: 1.5rem;
+    position: relative;
+  }
+
+  .actividad-info li:before {
+    content: "✓";
+    color: #800000;
+    position: absolute;
+    left: 0;
+  }
+
+  @media (max-width: 768px) {
+    .actividades-container {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  /* Estilos para la página de Socios */
+  .socios-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin: 2rem 0;
+  }
+
+  .beneficios {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+
+  .beneficios h3 {
+    color: #800000;
+    margin-bottom: 1.5rem;
+  }
+
+  .beneficios ul {
+    list-style-type: none;
+  }
+
+  .beneficios li {
+    margin-bottom: 1rem;
+    padding-left: 1.5rem;
+    position: relative;
+  }
+
+  .beneficios li:before {
+    content: "✓";
+    color: #800000;
+    position: absolute;
+    left: 0;
+  }
+
+  .formulario-socio {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+
+  .form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #333;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+  }
+
+  .form-group textarea {
+    resize: vertical;
+  }
+
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: #800000;
+  }
+
+  @media (max-width: 768px) {
+    .socios-container {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  /* Estilos para la página de Eventos */
+  .eventos-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin: 2rem 0;
+  }
+
+  .evento {
+    display: flex;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+  }
+
+  .evento:hover {
+    transform: translateX(10px);
+  }
+
+  .evento-fecha {
+    background: #800000;
+    color: white;
+    padding: 1rem;
+    text-align: center;
+    min-width: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .evento-fecha .dia {
+    font-size: 2rem;
+    font-weight: bold;
+    line-height: 1;
+  }
+
+  .evento-fecha .mes {
+    font-size: 1.2rem;
+    text-transform: uppercase;
+  }
+
+  .evento-info {
+    padding: 1.5rem;
+    flex: 1;
+  }
+
+  .evento-info h3 {
+    color: #800000;
+    margin-bottom: 0.5rem;
+  }
+
+  .evento-lugar {
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .evento-descripcion {
+    margin-bottom: 1rem;
+  }
+
+  @media (max-width: 768px) {
+    .evento {
+      flex-direction: column;
+    }
+
+    .evento-fecha {
+      flex-direction: row;
+      justify-content: center;
+      gap: 1rem;
+      padding: 0.5rem;
+    }
+
+    .evento:hover {
+      transform: translateY(-5px);
+    }
+  }
+  

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiénes Somos - Asociación Calabresa</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .quienes-somos-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Estilo base para los enlaces del menú */
+        nav ul li a {
+            padding: 8px 16px;
+            transition: all 0.3s ease;
+        }
+
+        /* Estilo para el menú al pasar el mouse */
+        nav ul li a:hover {
+            background-color: #f0f0f0;
+            color: #333;
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        /* Estilo para la página actual */
+        nav ul li a.active {
+            background-color: #e0e0e0;
+            color: #333;
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .descripcion {
+            margin-bottom: 40px;
+            line-height: 1.6;
+            text-align: justify;
+        }
+
+        .carrusel {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        .carrusel-container {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .carrusel img {
+            width: 100%;
+            height: auto;
+            display: none;
+        }
+
+        .carrusel img.active {
+            display: block;
+        }
+
+        .carrusel-buttons {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        }
+
+        .carrusel-btn {
+            padding: 8px 16px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .carrusel-btn:hover {
+            background-color: rgba(0, 0, 0, 0.9);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <img src="img/hqdefault.jpg" alt="Logo Asociación Calabresa" class="logo-img">
+                <h1>Asociación Calabresa</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="quienessomos.html" class="active">Quiénes somos</a></li>
+                    <li><a href="#noticias">Noticias</a></li>
+                    <li><a href="#actividades">Actividades</a></li>
+                    <li><a href="#galeria">Galería</a></li>
+                    <li><a href="#socios">Socios</a></li>
+                    <li><a href="#contacto">Contacto</a></li>
+                    <li><a href="#eventos">Eventos</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <div class="quienes-somos-container">
+                <h2>Quiénes Somos</h2>
+                <div class="descripcion">
+                    <p>La Asociación Calabresa nació del sueño de aquellos italianos que llegaron a Argentina desde la hermosa región de Calabria, Italia. Con el anhelo de preservar sus raíces y tradiciones, nuestros fundadores buscaron crear un espacio donde pudieran trabajar, enseñar sobre su rica cultura y mantener viva la llama de sus orígenes.</p>
+                    <p>Este lugar se convirtió en un punto de encuentro para las familias calabresas, donde podían reunirse, compartir sus experiencias y fomentar su cultura ancestral. A través de los años, la asociación ha servido como un puente entre dos mundos, permitiendo que las nuevas generaciones conozcan y valoren sus raíces, mientras que los más veteranos encuentran consuelo y alegría al mantener viva la conexión con su tierra natal, tan distante físicamente pero siempre presente en sus corazones.</p>
+                </div>
+
+                <div class="carrusel">
+                    <div class="carrusel-container">
+                        <img src="img/fachada.jpg" alt="Fachada de la Asociación" class="active">
+                        <img src="img/mesaybanderas.jpg" alt="Mesa y banderas">
+                        <img src="img/vitro.jpg" alt="Vitro">
+                        <img src="img/cuadros y banderas.jpg" alt="Cuadros y banderas">
+                    </div>
+                    <div class="carrusel-buttons">
+                        <button class="carrusel-btn" onclick="prevSlide()">Anterior</button>
+                        <button class="carrusel-btn" onclick="nextSlide()">Siguiente</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; 2025 Asociación Calabresa. Todos los derechos reservados.</p>
+        </footer>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        let slideInterval;
+        const slides = document.querySelectorAll('.carrusel img');
+
+        function showSlide(index) {
+            if (slides.length === 0) return;
+            
+            if (index >= slides.length) {
+                currentSlide = 0;
+            } else if (index < 0) {
+                currentSlide = slides.length - 1;
+            } else {
+                currentSlide = index;
+            }
+
+            slides.forEach((slide, i) => {
+                slide.classList.toggle('active', i === currentSlide);
+            });
+        }
+
+        function nextSlide() {
+            showSlide(currentSlide + 1);
+        }
+
+        function prevSlide() {
+            showSlide(currentSlide - 1);
+        }
+
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', () => {
+            // Inicializar carrusel si existe
+            if (slides.length > 0) {
+                showSlide(0);
+                
+                // Cambio automático cada 5 segundos
+                slideInterval = setInterval(nextSlide, 5000);
+            }
+        });
+
+        // Limpiar intervalo al salir de la página
+        window.addEventListener('beforeunload', () => {
+            if (slideInterval) {
+                clearInterval(slideInterval);
+            }
+        });
+
+        // Manejo de la clase active en el menú
+        function updateActiveMenu() {
+            try {
+                const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+                const menuLinks = document.querySelectorAll('nav ul li a');
+                
+                menuLinks.forEach(link => {
+                    const linkHref = link.getAttribute('href');
+                    link.classList.remove('active');
+                    if (linkHref === currentPage || (currentPage === '' && linkHref === 'index.html')) {
+                        link.classList.add('active');
+                    }
+                });
+            } catch (error) {
+                console.error('Error al actualizar el menú:', error);
+            }
+        }
+
+        // Ejecutar cuando se carga la página
+        document.addEventListener('DOMContentLoaded', updateActiveMenu);
+        
+        // Ejecutar cuando se navega entre páginas
+        window.addEventListener('popstate', updateActiveMenu);
+    </script>
+</body>
+</html> 
