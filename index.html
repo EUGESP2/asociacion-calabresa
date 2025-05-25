@@ -22,13 +22,27 @@
       padding: 8px 16px;
       border-radius: 4px;
       font-weight: bold;
-      transition: all 0.3s ease;
     }
 
     /* Estilo base para los enlaces del menú */
     nav ul li a {
       padding: 8px 16px;
-      transition: all 0.3s ease;
+    }
+
+    /* Optimización del slider */
+    .slider {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .slide {
+      display: none;
+      width: 100%;
+      height: auto;
+    }
+
+    .slide.active {
+      display: block;
     }
   </style>
 </head>
@@ -102,62 +116,31 @@
   </div>
 
   <script>
-    // Manejo de la clase active en el menú
-    function updateActiveMenu() {
-      const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-      const menuLinks = document.querySelectorAll('nav ul li a');
-      
-      menuLinks.forEach(link => {
-        const linkHref = link.getAttribute('href');
-        if (linkHref === currentPage || (currentPage === '' && linkHref === 'index.html')) {
-          link.classList.add('active');
-        } else {
-          link.classList.remove('active');
-        }
-      });
-    }
-
-    // Slider mejorado
-    let currentSlide = 0;
-    let slideInterval;
-    const slides = document.querySelectorAll('.slide');
-
-    function showSlide(index) {
-      if (slides.length === 0) return;
-      
-      if (index >= slides.length) {
-        currentSlide = 0;
-      } else if (index < 0) {
-        currentSlide = slides.length - 1;
-      } else {
-        currentSlide = index;
-      }
-
-      slides.forEach((slide, i) => {
-        slide.classList.toggle('active', i === currentSlide);
-      });
-    }
-
-    // Inicialización
+    // Manejo de la clase active en el menú - Optimizado
     document.addEventListener('DOMContentLoaded', () => {
-      // Actualizar menú
-      updateActiveMenu();
-      
-      // Inicializar slider si existe
-      if (slides.length > 0) {
-        showSlide(0);
-        
-        // Cambio automático cada 5 segundos
-        slideInterval = setInterval(() => {
-          showSlide(currentSlide + 1);
-        }, 5000);
+      const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+      const activeLink = document.querySelector(`nav ul li a[href="${currentPage}"]`);
+      if (activeLink) {
+        activeLink.classList.add('active');
       }
-    });
 
-    // Limpiar intervalo al salir de la página
-    window.addEventListener('beforeunload', () => {
-      if (slideInterval) {
-        clearInterval(slideInterval);
+      // Inicializar slider si existe
+      const slides = document.querySelectorAll('.slide');
+      if (slides.length > 0) {
+        let currentSlide = 0;
+        slides[0].classList.add('active');
+
+        // Cambio automático cada 5 segundos
+        const slideInterval = setInterval(() => {
+          slides[currentSlide].classList.remove('active');
+          currentSlide = (currentSlide + 1) % slides.length;
+          slides[currentSlide].classList.add('active');
+        }, 5000);
+
+        // Limpiar intervalo al salir de la página
+        window.addEventListener('beforeunload', () => {
+          clearInterval(slideInterval);
+        });
       }
     });
   </script>
