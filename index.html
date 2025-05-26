@@ -118,11 +118,42 @@
   <script>
     // Manejo de la clase active en el menú - Optimizado
     document.addEventListener('DOMContentLoaded', () => {
-      const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-      const activeLink = document.querySelector(`nav ul li a[href="${currentPage}"]`);
-      if (activeLink) {
-        activeLink.classList.add('active');
+      // Función para actualizar el menú activo
+      function updateActiveMenu() {
+        const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+        const menuLinks = document.querySelectorAll('nav ul li a');
+        
+        // Remover clase active de todos los enlaces
+        menuLinks.forEach(link => link.classList.remove('active'));
+        
+        // Agregar clase active al enlace actual
+        const activeLink = document.querySelector(`nav ul li a[href="${currentPage}"]`);
+        if (activeLink) {
+          activeLink.classList.add('active');
+        }
       }
+
+      // Actualizar menú al cargar la página
+      updateActiveMenu();
+
+      // Agregar event listeners a todos los enlaces del menú
+      const menuLinks = document.querySelectorAll('nav ul li a');
+      menuLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+          // Prevenir el comportamiento por defecto
+          e.preventDefault();
+          
+          // Obtener la URL del enlace
+          const href = link.getAttribute('href');
+          
+          // Actualizar la clase active
+          menuLinks.forEach(l => l.classList.remove('active'));
+          link.classList.add('active');
+          
+          // Navegar a la nueva página
+          window.location.href = href;
+        });
+      });
 
       // Inicializar slider si existe
       const slides = document.querySelectorAll('.slide');

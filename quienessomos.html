@@ -98,12 +98,12 @@
                 <ul>
                     <li><a href="index.html">Inicio</a></li>
                     <li><a href="quienessomos.html" class="active">Quiénes somos</a></li>
-                    <li><a href="#noticias">Noticias</a></li>
-                    <li><a href="#actividades">Actividades</a></li>
-                    <li><a href="#galeria">Galería</a></li>
-                    <li><a href="#socios">Socios</a></li>
-                    <li><a href="#contacto">Contacto</a></li>
-                    <li><a href="#eventos">Eventos</a></li>
+                    <li><a href="noticias.html">Noticias</a></li>
+                    <li><a href="actividades.html">Actividades</a></li>
+                    <li><a href="galeria.html">Galería</a></li>
+                    <li><a href="socios.html">Socios</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                    <li><a href="eventos.html">Eventos</a></li>
                 </ul>
             </nav>
         </header>
@@ -165,47 +165,63 @@
             showSlide(currentSlide - 1);
         }
 
-        // Inicialización
+        // Manejo de la clase active en el menú - Optimizado
         document.addEventListener('DOMContentLoaded', () => {
-            // Inicializar carrusel si existe
-            if (slides.length > 0) {
-                showSlide(0);
-                
-                // Cambio automático cada 5 segundos
-                slideInterval = setInterval(nextSlide, 5000);
-            }
-        });
-
-        // Limpiar intervalo al salir de la página
-        window.addEventListener('beforeunload', () => {
-            if (slideInterval) {
-                clearInterval(slideInterval);
-            }
-        });
-
-        // Manejo de la clase active en el menú
-        function updateActiveMenu() {
-            try {
+            // Función para actualizar el menú activo
+            function updateActiveMenu() {
                 const currentPage = window.location.pathname.split('/').pop() || 'index.html';
                 const menuLinks = document.querySelectorAll('nav ul li a');
                 
-                menuLinks.forEach(link => {
-                    const linkHref = link.getAttribute('href');
-                    link.classList.remove('active');
-                    if (linkHref === currentPage || (currentPage === '' && linkHref === 'index.html')) {
-                        link.classList.add('active');
-                    }
-                });
-            } catch (error) {
-                console.error('Error al actualizar el menú:', error);
+                // Remover clase active de todos los enlaces
+                menuLinks.forEach(link => link.classList.remove('active'));
+                
+                // Agregar clase active al enlace actual
+                const activeLink = document.querySelector(`nav ul li a[href="${currentPage}"]`);
+                if (activeLink) {
+                    activeLink.classList.add('active');
+                }
             }
-        }
 
-        // Ejecutar cuando se carga la página
-        document.addEventListener('DOMContentLoaded', updateActiveMenu);
-        
-        // Ejecutar cuando se navega entre páginas
-        window.addEventListener('popstate', updateActiveMenu);
+            // Actualizar menú al cargar la página
+            updateActiveMenu();
+
+            // Agregar event listeners a todos los enlaces del menú
+            const menuLinks = document.querySelectorAll('nav ul li a');
+            menuLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    // Prevenir el comportamiento por defecto
+                    e.preventDefault();
+                    
+                    // Obtener la URL del enlace
+                    const href = link.getAttribute('href');
+                    
+                    // Actualizar la clase active
+                    menuLinks.forEach(l => l.classList.remove('active'));
+                    link.classList.add('active');
+                    
+                    // Navegar a la nueva página
+                    window.location.href = href;
+                });
+            });
+
+            // Inicializar carrusel si existe
+            if (slides.length > 0) {
+                let currentSlide = 0;
+                slides[0].classList.add('active');
+
+                // Cambio automático cada 5 segundos
+                const slideInterval = setInterval(() => {
+                    slides[currentSlide].classList.remove('active');
+                    currentSlide = (currentSlide + 1) % slides.length;
+                    slides[currentSlide].classList.add('active');
+                }, 5000);
+
+                // Limpiar intervalo al salir de la página
+                window.addEventListener('beforeunload', () => {
+                    clearInterval(slideInterval);
+                });
+            }
+        });
     </script>
 </body>
 </html> 
