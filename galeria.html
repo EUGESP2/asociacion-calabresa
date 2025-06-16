@@ -69,14 +69,19 @@
                 <h1>Asociación Calabresa</h1>
             </div>
             <nav>
-                <ul>
+                <button class="menu-toggle" aria-label="Abrir menú">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <ul class="nav-menu">
                     <li><a href="index.html">Inicio</a></li>
                     <li><a href="quienessomos.html">Quiénes somos</a></li>
                     <li><a href="noticias.html">Noticias</a></li>
                     <li><a href="actividades.html">Actividades</a></li>
                     <li><a href="galeria.html" class="active">Galería</a></li>
                     <li><a href="socios.html">Socios</a></li>
-                    <li><a href="#contacto">Contacto</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
                     <li><a href="eventos.html">Eventos</a></li>
                 </ul>
             </nav>
@@ -170,27 +175,70 @@
     </div>
 
     <script>
-        // Manejo de la clase active en el menú
-        function updateActiveMenu() {
-            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-            const menuLinks = document.querySelectorAll('nav ul li a');
-            
-            menuLinks.forEach(link => {
-                const linkHref = link.getAttribute('href');
-                // Remover la clase active de todos los enlaces
-                link.classList.remove('active');
-                // Agregar la clase active al enlace actual
-                if (linkHref === currentPage) {
-                    link.classList.add('active');
+        document.addEventListener('DOMContentLoaded', () => {
+            // Función para actualizar el menú activo
+            function updateActiveMenu() {
+                const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+                const menuLinks = document.querySelectorAll('.nav-menu li a');
+                
+                menuLinks.forEach(link => link.classList.remove('active'));
+                
+                const activeLink = document.querySelector(`.nav-menu li a[href="${currentPage}"]`);
+                if (activeLink) {
+                    activeLink.classList.add('active');
                 }
-            });
-        }
+            }
 
-        // Ejecutar cuando se carga la página
-        document.addEventListener('DOMContentLoaded', updateActiveMenu);
-        
-        // Ejecutar cuando se navega entre páginas
-        window.addEventListener('popstate', updateActiveMenu);
+            // Actualizar menú al cargar la página
+            updateActiveMenu();
+
+            // Manejo del menú hamburguesa
+            const menuToggle = document.querySelector('.menu-toggle');
+            const nav = document.querySelector('nav');
+            const header = document.querySelector('header');
+            let lastScroll = 0;
+            let isMenuOpen = false;
+
+            if (menuToggle && nav) {
+                menuToggle.addEventListener('click', () => {
+                    menuToggle.classList.toggle('active');
+                    nav.classList.toggle('active');
+                    isMenuOpen = !isMenuOpen;
+                });
+            }
+
+            // Cerrar menú al hacer clic en un enlace
+            const menuLinks = document.querySelectorAll('.nav-menu li a');
+            menuLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (menuToggle && nav) {
+                        menuToggle.classList.remove('active');
+                        nav.classList.remove('active');
+                        isMenuOpen = false;
+                    }
+                });
+            });
+
+            // Manejo del efecto de scroll
+            window.addEventListener('scroll', () => {
+                const currentScroll = window.pageYOffset;
+                
+                // Si el menú está abierto, no ocultar el header
+                if (!isMenuOpen) {
+                    if (currentScroll > lastScroll && currentScroll > 100) {
+                        // Scroll hacia abajo
+                        header.classList.add('hide');
+                        header.classList.remove('show');
+                    } else {
+                        // Scroll hacia arriba
+                        header.classList.remove('hide');
+                        header.classList.add('show');
+                    }
+                }
+                
+                lastScroll = currentScroll;
+            });
+        });
     </script>
 </body>
 </html> 

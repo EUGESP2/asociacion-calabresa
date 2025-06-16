@@ -173,9 +173,20 @@
   }
   
   @media (max-width: 768px) {
+    .container {
+      width: 100%;
+      padding: 0;
+    }
+
+    header {
+      position: relative;
+      padding: 0.5rem;
+    }
+
     .logo {
       flex-direction: column;
       text-align: center;
+      padding: 0.5rem;
     }
 
     .logo h1 {
@@ -186,6 +197,7 @@
       flex-direction: column;
       align-items: center;
       gap: 0.5rem;
+      padding: 0.5rem 0;
     }
 
     nav ul li {
@@ -196,19 +208,147 @@
     nav ul li a {
       display: block;
       padding: 0.8rem;
+      font-size: 1.1rem;
+    }
+
+    main {
+      padding: 1rem;
+      margin-top: 1rem;
     }
 
     .content-box {
       padding: 1rem;
+      width: 100%;
+    }
+
+    .main-content {
+      display: block;
+    }
+
+    .sidebar {
+      margin-top: 2rem;
+      width: 100%;
     }
 
     h2 {
       font-size: 1.5rem;
+      margin-top: 1rem;
     }
 
     .btn {
       width: 100%;
       text-align: center;
+    }
+
+    /* Ajustes específicos para el carrusel */
+    .carrusel {
+      width: 100%;
+      margin: 1rem 0;
+    }
+
+    .carrusel img {
+      width: 100%;
+      height: auto;
+    }
+
+    /* Ajustes para la sección de historia */
+    .historia {
+      flex-direction: column;
+    }
+
+    .historia-img {
+      width: 100%;
+      margin-bottom: 1rem;
+    }
+
+    /* Ajustes para la sección de noticias */
+    .noticias-grid {
+      grid-template-columns: 1fr;
+    }
+
+    /* Ajustes para la sección de actividades */
+    .actividades-container {
+      grid-template-columns: 1fr;
+    }
+
+    /* Estilos del menú móvil */
+    .menu-toggle {
+      display: block;
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      z-index: 1001;
+    }
+
+    .menu-toggle span {
+      display: block;
+      width: 25px;
+      height: 3px;
+      background-color: #fff;
+      margin: 5px 0;
+      transition: all 0.3s ease;
+    }
+
+    .menu-toggle.active span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .menu-toggle.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .menu-toggle.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -6px);
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 80%;
+      max-width: 300px;
+      height: 100vh;
+      background-color: #800000;
+      transition: right 0.3s ease;
+      z-index: 999;
+      box-shadow: -2px 0 5px rgba(0,0,0,0.2);
+    }
+
+    nav.active {
+      right: 0;
+    }
+
+    .nav-menu {
+      flex-direction: column;
+      padding: 60px 20px 20px;
+      height: 100%;
+      overflow-y: auto;
+      margin: 0;
+    }
+
+    .nav-menu li {
+      width: 100%;
+      margin: 5px 0;
+    }
+
+    .nav-menu li a {
+      display: block;
+      padding: 10px;
+      font-size: 1rem;
+      text-align: left;
+    }
+
+    header {
+      padding: 0.5rem;
+      transition: transform 0.3s ease;
+    }
+
+    header.hide {
+      transform: translateY(-100%);
+    }
+
+    header.show {
+      transform: translateY(0);
     }
   }
   
@@ -221,12 +361,29 @@
       font-size: 1.2rem;
     }
 
+    nav ul li a {
+      font-size: 1rem;
+      padding: 0.6rem;
+    }
+
+    main {
+      padding: 0.5rem;
+    }
+
     .content-box {
       padding: 0.8rem;
     }
 
     .publicidad, .novedades {
       padding: 1rem;
+    }
+
+    h2 {
+      font-size: 1.3rem;
+    }
+
+    p {
+      font-size: 0.95rem;
     }
   }
   

@@ -95,7 +95,12 @@
                 <h1>Asociación Calabresa</h1>
             </div>
             <nav>
-                <ul>
+                <button class="menu-toggle" aria-label="Abrir menú">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <ul class="nav-menu">
                     <li><a href="index.html">Inicio</a></li>
                     <li><a href="quienessomos.html" class="active">Quiénes somos</a></li>
                     <li><a href="noticias.html">Noticias</a></li>
@@ -165,18 +170,15 @@
             showSlide(currentSlide - 1);
         }
 
-        // Manejo de la clase active en el menú - Optimizado
         document.addEventListener('DOMContentLoaded', () => {
             // Función para actualizar el menú activo
             function updateActiveMenu() {
                 const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-                const menuLinks = document.querySelectorAll('nav ul li a');
+                const menuLinks = document.querySelectorAll('.nav-menu li a');
                 
-                // Remover clase active de todos los enlaces
                 menuLinks.forEach(link => link.classList.remove('active'));
                 
-                // Agregar clase active al enlace actual
-                const activeLink = document.querySelector(`nav ul li a[href="${currentPage}"]`);
+                const activeLink = document.querySelector(`.nav-menu li a[href="${currentPage}"]`);
                 if (activeLink) {
                     activeLink.classList.add('active');
                 }
@@ -185,23 +187,51 @@
             // Actualizar menú al cargar la página
             updateActiveMenu();
 
-            // Agregar event listeners a todos los enlaces del menú
-            const menuLinks = document.querySelectorAll('nav ul li a');
-            menuLinks.forEach(link => {
-                link.addEventListener('click', (e) => {
-                    // Prevenir el comportamiento por defecto
-                    e.preventDefault();
-                    
-                    // Obtener la URL del enlace
-                    const href = link.getAttribute('href');
-                    
-                    // Actualizar la clase active
-                    menuLinks.forEach(l => l.classList.remove('active'));
-                    link.classList.add('active');
-                    
-                    // Navegar a la nueva página
-                    window.location.href = href;
+            // Manejo del menú hamburguesa
+            const menuToggle = document.querySelector('.menu-toggle');
+            const nav = document.querySelector('nav');
+            const header = document.querySelector('header');
+            let lastScroll = 0;
+            let isMenuOpen = false;
+
+            if (menuToggle && nav) {
+                menuToggle.addEventListener('click', () => {
+                    menuToggle.classList.toggle('active');
+                    nav.classList.toggle('active');
+                    isMenuOpen = !isMenuOpen;
                 });
+            }
+
+            // Cerrar menú al hacer clic en un enlace
+            const menuLinks = document.querySelectorAll('.nav-menu li a');
+            menuLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (menuToggle && nav) {
+                        menuToggle.classList.remove('active');
+                        nav.classList.remove('active');
+                        isMenuOpen = false;
+                    }
+                });
+            });
+
+            // Manejo del efecto de scroll
+            window.addEventListener('scroll', () => {
+                const currentScroll = window.pageYOffset;
+                
+                // Si el menú está abierto, no ocultar el header
+                if (!isMenuOpen) {
+                    if (currentScroll > lastScroll && currentScroll > 100) {
+                        // Scroll hacia abajo
+                        header.classList.add('hide');
+                        header.classList.remove('show');
+                    } else {
+                        // Scroll hacia arriba
+                        header.classList.remove('hide');
+                        header.classList.add('show');
+                    }
+                }
+                
+                lastScroll = currentScroll;
             });
 
             // Inicializar carrusel si existe
